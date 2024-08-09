@@ -1,0 +1,10 @@
+<!-- visit_update.html -->
+{% extends 'base_generic.html' %}
+{% block content %}
+    <h2>Update Visit</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Visit</button>
+    </form>
+{% endblock %}

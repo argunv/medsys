@@ -1,12 +1,3 @@
-from enum import Enum
-
-class UserLevel(Enum):
-    """Enumeration of user levels."""
-    SUPERUSER = 3
-    ADMIN = 2
-    DOCTOR = 1
-    PATIENT = 0
-
 USER_CREATION_FIELDS = (
     'username', 'first_name', 'last_name', 'email', 'phone', 'user_level'
 )

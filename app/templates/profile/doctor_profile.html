@@ -1,0 +1,116 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+<div class="table_main">
+    <h2>Active Patients</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Visit ID</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if patients %}
+                {% for patient in patients %}
+                    <tr>
+                        <td id="copy__data">{{ patient.patient }}</td>
+                        <td id="copy__data">{{ patient.id }}</td>
+                        <td><button class="btn view__btn" onclick="window.location = '/{{ patient.username }}'">VIEW</button></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3">No active patients found</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+
+    <h2>Schedule</h2>
+    <table>
+        <thead>
+            <tr>
+                <!-- <th>id</th> -->
+                <th>Day of Week</th>
+                <th>Start</th>
+                <th>End</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if schedules %}
+                {% for schedule in schedules %}
+                    <tr>
+                        <!-- <td id="copy__data">{{ schedule.id }}</td> -->
+                        <td id="copy__data">{{ schedule.day_of_week }}</td>
+                        <td id="copy__data">{{ schedule.start }}</td>
+                        <td id="copy__data">{{ schedule.end }}</td>
+                        <td><button class="btn edit__btn" onclick="window.location = '/schedule/{{ schedule.id }}/update/'">EDIT</button></td>
+                        <td><button class="btn delete__btn" onclick="window.location = '/schedule/{{ schedule.id }}/delete/'">DELETE</button></td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5">No schedules found</td>
+                </tr>
+            {% endif %}
+            <tr>
+                <td colspan="5" class="td__create__btn">
+                    <button class="btn create__btn" onclick="window.location = '/schedule/create/'">ADD SCHEDULE</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+    <h2>Visits</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Patient</th>
+                <th>Date</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if visits %}
+                {% for visit in visits %}
+                    <tr>
+                        <td onclick="window.location = '/{{ visit.patient.username }}'">{{ visit.patient }}</td>
+                        <td id="copy__data">{{ visit.date }}</td>
+                        <td>
+                            {% if visit.editable == True %}
+                                <button class="btn edit__btn" onclick="window.location='/visit/{{ visit.id }}/update/'">EDIT</button>
+                            {% elif visit.add_diagnosis == True %}
+                                <button class="btn edit__btn" onclick="window.location='/diagnosis/add/{{ visit.patient.id }}'">ADD DIAGNOSIS</button>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3">No visits found</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+    <!-- Возможность изменить свою специализацию -->
+    <table>
+        <thead>
+            <tr>
+                <th>Specialization</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="copy__data">{{ specialization }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <button class="btn edit__btn" onclick="window.location = '/specialization/update/{{ user.id }}'">EDIT SPECIALIZATION</button>
+</div>
+<script src="/static/js/copy.js"></script>
+{% endblock %}

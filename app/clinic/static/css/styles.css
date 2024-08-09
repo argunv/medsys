@@ -1,0 +1,453 @@
+/* Updated styles for dark theme */
+body {
+    background-color: #121212; /* Darker background color */
+    color: #e0e0e0; /* Slightly lighter text color for better contrast */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.btn__cancel {
+    background-color: #333333;
+}
+
+header {
+    background-color: #1f1f1f; /* Darker header background */
+    color: #ffffff;
+    padding: 20px;
+}
+
+h1 a {
+    color: #e0e0e0; /* Adjusted link color */
+    text-decoration: none;
+}
+
+header h1 {
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    padding: 20px;
+    margin: 5px 15px;
+}
+
+.table_main {
+    padding-bottom: 70px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+a {
+    color: #e0e0e0; /* Adjusted link color */
+    text-decoration: none;
+}
+
+main {
+    padding: 20px;
+}
+
+footer {
+    background-color: #1f1f1f; /* Darker footer background */
+    color: #ffffff;
+    padding: 10px 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+form {
+    background-color: #242424; /* Form background color */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners for the form */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5); /* Slight shadow for depth */
+}
+
+input, select {
+    appearance: unset;
+    font-size: 16px;
+    background-color: #333333; /* Input and select background */
+    color: #e0e0e0; /* Input and select text color */
+    border: 1px solid #555555; /* Input and select border color */
+    padding: 10px;
+    margin: 10px 0;
+    border-radius: 5px; /* Rounded corners for inputs */
+}
+
+input[type='time'] {
+    font-size: medium;
+    padding: 3px;
+}
+
+input[type='date'] {
+    font-size: medium;
+    padding: 3px;
+}
+
+input[type='checkbox'] {
+    appearance: checkbox;
+    width: 20px;
+    height: 20px;
+    margin: 5px;
+}
+
+#day_of_week {
+    padding: 10px 7px !important;
+}
+
+button {
+    background-color: #444444; /* Button background color */
+    color: #e0e0e0; /* Button text color */
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners for buttons */
+}
+
+button:hover {
+    background-color: #555555; /* Button hover color */
+}
+
+
+/* Table */
+table {
+    width: auto !important;
+    min-width: 400px;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    border: 1px solid #dddddd;
+    padding: 8px;
+    text-align: left;
+}
+
+table th {
+    background-color: #333333;
+    color: #ffffff;
+}
+
+/* Forms */
+form {
+    width: 90%; /* Form width for mobile devices */
+    max-width: 400px; /* Maximum form width */
+    margin: auto;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], select, textarea {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+}
+
+input[type="submit"] {
+    background-color: #333333;
+    color: #ffffff;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #555555;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* header nav { 
+    width: 60%;
+}
+*/
+
+header nav ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.choose_btn {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+
+main {
+    padding-bottom: 70px;
+}
+
+/* Styles for regular buttons */
+button, a.button {
+    background-color: #4CAF50; /* Green color */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+h2 {
+    text-align: center;
+}
+
+/* Styles for buttons on hover */
+input[type='button']:hover, button[type='submit']:hover, .btn:hover, a.button:hover {
+    background-color: #45a049;
+}
+
+/* Styles for buttons on activation */
+input[type='button']:active, input[type='submit']:active, button[type='submit']:active, .btn:active, a.button:active {
+    background-color: #3e8e41;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Media queries for mobile devices */
+@media screen and (max-width: 768px) {
+    header {
+        display: flex;
+        justify-content: center;
+        padding: 10px;
+    }
+    
+    header nav {
+        width: 100%;
+    }
+
+    header h1 {
+        display: none;
+        /* font-size: 24px; */
+    }
+    
+    nav ul li {
+        display: block;
+        text-align: center;
+        margin-bottom: 5px;
+        margin-right: 5px;
+        margin-left: 5px;
+        padding: 0px;
+    }
+    
+    footer {
+        padding: 5px 10px;
+    }
+}
+
+@media (max-width: 600px) {
+    body {
+      font-size: 14px;
+    }
+    table {
+        width: 100%;
+        min-width: 100%;
+    }
+}
+
+table {
+    border-collapse: collapse; /* Removes borders between cells */
+    margin: 20px 0; /* Adds top and bottom margins */
+}
+
+th, td {
+    border: 1px solid #ddd; /* Adds border around cells */
+    padding: 8px; /* Adds padding inside cells */
+    text-align: left; /* Aligns text to the left */
+}
+
+th {
+    background-color: #333; /* Table header background color */
+    color: #fff; /* Table header text color */
+}
+
+@media (max-width: 600px) {
+    table {
+        font-size: 14px; /* Reduces font size for screens less than 600px */
+    }
+    th, td {
+        padding: 6px; /* Reduces padding inside cells for screens less than 600px */
+    }
+}
+
+table tr:hover {
+    background-color: #000000; /* Light gray background on row hover */
+    cursor: pointer;
+}
+
+table a {
+    text-decoration: none;
+}
+
+.doctor__info, .doctor__visit, .doctor__schedule {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.error_msg_block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    text-align: center;
+}
+
+.no_schedule {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    padding: 10px;
+
+    animation: fade-in 2s ease-in-out;
+
+    animation: shake 2s ease-in-out;
+    background-color: red;
+
+    max-width: 300px;
+}
+
+@keyframes fade-in {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes shake {
+    0% {
+        transform: translateX(0);
+    }
+    10% {
+        transform: translateX(-10px) rotateZ(-5deg);
+    }
+    20% {
+        transform: translateX(10px) rotateZ(5deg);
+    }
+    30% {
+        transform: translateX(-10px) rotateZ(-5deg);
+    }
+    40% {
+        transform: translateX(10px) rotateZ(5deg);
+    }
+    50% {
+        transform: translateX(-10px) rotateZ(-5deg);
+    }
+    60% {
+        transform: translateX(10px) rotateZ(5deg);
+    }
+    70% {
+        transform: translateX(-10px) rotateZ(-5deg);
+    }
+    80% {
+        transform: translateX(10px) rotateZ(5deg);
+    }
+    90% {
+        transform: translateX(-10px) rotateZ(-5deg);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.title__ {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.try__again {
+    padding: 30px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    flex-direction: column;
+}
+
+.edit__btn, .delete__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding: 5px;
+}
+
+.delete__btn {
+    background-color: red;
+}
+
+.delete__btn:hover {
+    background-color: darkred;
+}
+
+.td__create__btn {
+    text-align: center;
+}
+
+.create__btn {
+    padding: 4px 10px;
+}
+
+form p {
+    display: flex;
+    flex-direction: column;
+}
+
+.iti {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.iti__tel-input {
+    min-width: 400px;
+    border: 1px solid #ccc;
+}
+
+.diagnoses__form__update p {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.description__text {
+    display: block;
+    max-width: 300px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

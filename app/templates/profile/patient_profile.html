@@ -1,0 +1,52 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <div class="table_main">
+        {% if user.username %}
+            <h1><a href='/{{ user.username }}' class="full__name">{{ user.first_name }}</a>'s profile</h1>
+        {% endif %}
+        <h2>Diagnoses</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Doctor</th>
+                    <th>Description</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for diagnosis in diagnoses %}
+                    <tr>
+                        <td id="copy__data">{{ diagnosis.doctor.first_name }} {{ diagnosis.doctor.last_name }}</td>
+                        <td id="copy__data">{{ diagnosis.description }}</td>
+                        <td id="copy__data">{% if diagnosis.is_active %}Active{% else %}Inactive{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <h2>Visits</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Doctor</th>
+                    <th>Date</th>
+                    <th>Start Time</th>
+                    <th>End Time</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for visit in visits_info %}
+                    <tr onclick="window.location='{% if visit.editable == True %}/visit/{{ visit.id }}/update/{% else %}#{% endif %}'">
+                        <td id="copy__data">{{ visit.doctor }}</td>
+                        <td id="copy__data">{{ visit.date }}</td>
+                        <td id="copy__data">{{ visit.start }}</td>
+                        <td id="copy__data">{{ visit.end }}</td>
+                        <td id="copy__data">{{ visit.status }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <script src="/static/js/copy.js"></script>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+<h1 class="title__">Doctor Profile <a href="/{{ doctor.username }}">{{ doctor.username }}</a></h1>
+<table class="doctor__info">
+  <tr>
+    <td>Full Name:</td>
+    <td id="copy__data">{{ doctor.first_name }} {{ doctor.last_name }}</td>
+  </tr>
+  <tr>
+    <td>Email:</td>
+    <td id="copy__data">{{ doctor.email }}</td>
+  </tr>
+  <tr>
+    <td>Phone:</td>
+    <td id="copy__data">{{ doctor.phone }}</td>
+  </tr>
+</table>
+
+<h2>Schedule</h2>
+{% if schedules %}
+    <table>
+      <thead>
+        <tr>
+          <th>Day of the Week</th>
+          <th>Start</th>
+          <th>End</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for schedule in schedules %}
+          <tr>
+            <td id="copy__data">{{ schedule.get_day_of_week_display }}</td>
+            <td id="copy__data">{{ schedule.start }}</td>
+            <td id="copy__data">{{ schedule.end }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+{% else %}
+    <div class="error_msg_block">
+        <div class="no_schedule">
+            <p>No schedule available.</p>
+        </div>
+    </div>
+    <script src="/static/js/reset.js"></script>
+{% endif %}
+<script src="/static/js/copy.js"></script>
+{% endblock %}

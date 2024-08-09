@@ -1,0 +1,10 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+  <h2>Изменить статус диагноза</h2>
+  <form method="post" class="diagnoses__form__update">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Изменить</button>
+  </form>
+{% endblock %}

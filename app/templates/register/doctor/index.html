@@ -1,0 +1,13 @@
+{% extends "base_generic.html" %}
+{% block content %}
+<link rel="stylesheet" href="/static/css/intlTelInput.css">
+<h2>Register a New Doctor</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+</form>
+<script src="/static/js/intlTelInput.js"></script>
+<script src="/static/js/utils.js"></script>
+<script src="/static/js/phone.js"></script>
+{% endblock %}

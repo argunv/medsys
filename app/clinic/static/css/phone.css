@@ -1,0 +1,32 @@
+
+.field-phone::after {
+    padding-bottom: 300px;
+}
+
+@media (prefers-color-scheme: dark) {
+    .iti {
+      --iti-border-color: #5b5b5b;
+      --iti-dialcode-color: #999999;
+      --iti-dropdown-bg: #0d1117;
+      --iti-arrow-color: #aaaaaa;
+      --iti-hover-color: #30363d;
+    }
+  }
+
+
+.iti__country-list {
+    box-sizing: border-box;
+    color: rgb(238, 238, 238);
+    display: block;
+    font-family: "Segoe UI", system-ui, Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    font-size: 13px;
+    height: 185px;
+    list-style-image: none;
+    list-style-position: outside;
+    list-style-type: none;
+    margin: 0px !important;
+    max-height: none !important;
+    overflow-y: scroll;
+    padding: 0px !important;
+    width: auto;
+}
