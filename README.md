@@ -45,15 +45,16 @@ MedSys is an automated system designed to manage operations within medical insti
 4. **Create a `.env` file in the `app` directory**:
    Here's an example of what the `.env` file should look like:
    ```env
-    SECRET_KEY="{{ your_secret_key_here }}"
-    PG_DBNAME={{ your_database_name_here }}
-    PG_USER={{ your_database_user_here }}
-    PG_PASSWORD={{ your_database_password_here }}
-    PG_HOST={{ your_database_host_here }}
-    PG_PORT={{ your_database_port_here }}
-    ALLOWED_HOSTS={{ your_allowed_hosts_here }}
-    DATABASE_TEST_NAME={{ your_test_database_name_here }}
-    TEST_USER_PASSWORD={{ your_test_user_password_here }}
+   POSTGRES_DB=
+   POSTGRES_USER=
+   POSTGRES_PASSWORD=
+   POSTGRES_PORT=
+
+   DEBUG=
+   SECRET_KEY=
+   POSTGRES_HOST=
+
+   DJANGO_PORT=
    ```
 
 5. **Apply database migrations**:

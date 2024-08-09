@@ -40,11 +40,12 @@ jobs:
       - name: Run tests
         env:
           SECRET_KEY: "django-insecure-p9vn6_l(g*ub2i72)1=iedk9hepchogmrmred=czn-r&g#c_*s)"
-          PG_DBNAME: postgres
-          PG_USER: postgres
-          PG_PASSWORD: postgres
-          PG_HOST: 127.0.0.1
-          PG_PORT: 5432
+          POSTGRES_DB: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_PORT: 5432
+          POSTGRES_HOST: 127.0.0.1
+          DEBUG: True
           ALLOWED_HOSTS: "*"
           DATABASE_TEST_NAME: test_db
           TEST_USER_PASSWORD: Ga3aghah
