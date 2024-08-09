@@ -1,0 +1,51 @@
+{% extends 'base_generic.html' %}
+{% block content %}
+
+<div class="table_main">
+    <h2>General User Information:</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td id="copy__data">{{ patient.first_name }} {{ patient.last_name }}</td>
+                <td id="copy__data">{{ patient.email }}</td>
+                <td id="copy__data">{{ patient.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Diagnoses</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Owner</th>
+                <th>Description</th>
+                <th>Created at</th>
+                <th>Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if diagnoses %}
+                {% for diagnosis in diagnoses %}
+                    <tr>
+                        <td onclick="window.location = '/{{ diagnoses.doctor.username }}';">{{ diagnosis.doctor.username }}</td>
+                        <td id="copy__data" class="description__text">{{ diagnosis.description }}</td>
+                        <td id="copy__data">{{ diagnosis.created_at }}</td>
+                        <td {% if request.user == diagnosis.doctor %} onclick="window.location = '/diagnosis/update/{{diagnosis.id}}';" {% else %} {% endif %}>{% if diagnosis.is_active %}Yes{% else %}No{% endif %}</td>
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="2">No diagnoses found</td>
+                </tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+<script src="/static/js/copy.js"></script>
+{% endblock %}

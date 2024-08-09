@@ -1,0 +1,49 @@
+{% extends 'base_generic.html' %}
+
+{% block content %}
+<div class="table_main">
+    <h1>Поиск докторов</h1>
+    <form method="GET" action="{% url 'search_doctors' %}" class="search-form">
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Искать</button>
+    </form>
+    {% if object_list %}
+        <h2>Результаты поиска:</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Имя</th>
+                    <th>Специальность</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for doctor in object_list %}
+                    <tr>
+                        <td onclick="window.location='/{{ doctor.username }}'"><a href="/{{ doctor.username }}">{{ doctor.first_name }} {{ doctor.last_name }}</a></td>
+                        <td id="copy__data">
+                            {% with found=False %}
+                                {% for specialization in specializations %}
+                                    {% if specialization.doctor == doctor %}
+                                        {{ specialization.specialization }}{% if not forloop.last %}, {% endif %}
+                                        {% with found=True %}
+                                        {% endwith %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endwith %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="try__again">
+            <h2>Ничего не найдено. Попробуйте изменить параметры поиска.</h2>
+            <!-- <button class="btn" onclick="resetSearchCookie();">Вернуться</button> -->
+            <button class="btn" onclick="window.location = '/search'">Вернуться</button>
+            <!-- <script src="/static/js/reset.js"></script> -->
+        </div>
+    {% endif %}
+</div>
+<!-- <script src="/static/js/search.js"></script> -->
+<script src="/static/js/copy.js"></script>
+{% endblock %}
