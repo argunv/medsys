@@ -15,15 +15,16 @@ MedSys is an automated system designed to manage operations within medical insti
 - **Django**: High-level Python web framework that encourages rapid development and clean, pragmatic design.
 - **PostgreSQL**: Powerful, open-source object-relational database system.
 - **Django REST Framework**: Flexible and powerful toolkit for building Web APIs.
+- **Docker**: Platform for developing, shipping, and running applications in containers.
+- **Docker Compose**: Tool for defining and running multi-container Docker applications.
 
 ## Installation
 
 ### Prerequisites
 
-- Python 3.8+
-- PostgreSQL
+- Docker and Docker Compose installed on your machine.
 
-### Setup
+### Setup with Docker
 
 1. **Clone the repository**:
    ```sh
@@ -31,63 +32,53 @@ MedSys is an automated system designed to manage operations within medical insti
    cd medsys
    ```
 
-2. **Create a virtual environment**:
-   ```sh
-   python -m venv venv
-   source venv/bin/activate
-   ```
-
-3. **Install the required dependencies**:
-   ```sh
-   pip install -r requirements.txt
-   ```
-
-4. **Create a `.env` file in the `app` directory**:
-   Here's an example of what the `.env` file should look like:
+2. **Create a `.env` file**:
    ```env
    POSTGRES_DB=
    POSTGRES_USER=
    POSTGRES_PASSWORD=
    POSTGRES_PORT=
 
+   DJANGO_PORT=
+
    DEBUG=
    SECRET_KEY=
    POSTGRES_HOST=
-
-   DJANGO_PORT=
    ```
+   You can find an example with values in the [`.env.example`](https://github.com/argunv/medsys/blob/main/.env.example) file.
 
-5. **Apply database migrations**:
+3. **Build and run the Docker containers**:
    ```sh
-   python app/manage.py migrate
+   docker-compose up -d
    ```
 
-6. **Create a superuser**:
-   ```sh
-   python app/manage.py createsuperuser
-   ```
+   This will build and start the PostgreSQL and Django containers. The Django application will automatically apply database migrations, create a superuser, and start the development server.
 
-7. **Run the development server**:
-   ```sh
-   python app/manage.py runserver
-   ```
+4. **Access the system**:
+   - Open your browser and navigate to `http://127.0.0.1:${DJANGO_PORT}/` (e.g., `http://127.0.0.1:8000/`).
 
 ## Usage
 
-1. **Access the system**: 
-   Open your browser and navigate to `http://127.0.0.1:8000/`.
+1. **Admin Panel**:
+   Use the admin panel to manage users, appointments, and other data. Access it via `http://127.0.0.1:${DJANGO_PORT}/admin/`.
+   Default login: `admin`, password: `admin`.
 
-2. **Admin Panel**:
-   Use the admin panel to manage users, appointments, and other data. Access it via `http://127.0.0.1:8000/admin/`.
+2. **API Endpoints**:
+   - View the available API endpoints by visiting `http://127.0.0.1:${DJANGO_PORT}/api/`.
 
-3. **API Endpoints**:
-   - View the available API endpoints by visiting `http://127.0.0.1:8000/api/`.
+3. **Token Authentication**:
+   - Get your TOKEN sending POST request to `http://127.0.0.1:${DJANGO_PORT}/api-token-auth/`.
 
 ## Running Tests
 
 To run the test suite, use the following command:
 ```sh
-python app/manage.py test
+python app/manage.py test clinic.tests
+```
+
+If using Docker, you can run tests inside the container:
+```sh
+docker-compose exec web python app/manage.py test clinic.tests
 ```
 
 ## Code Style and Contribution Guidelines
