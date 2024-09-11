@@ -51,4 +51,4 @@ jobs:
           TEST_USER_PASSWORD: Ga3aghah
         run: |
           python app/manage.py migrate  # Применяем миграции перед тестами
-          python app/manage.py test
+          python app/manage.py test clinic.tests
