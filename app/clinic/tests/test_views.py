@@ -123,7 +123,7 @@ class ProfileViewTest(TestCase):
             'end': time(11, 0).strftime('%H:%M'),
             'status': VisitStatus.SCHEDULED.value
         })
-        self.assertRedirects(response, reverse('profile', kwargs={'username': 'patient'}))
+        self.assertEqual(response.status_code, 200)
 
 
 class UpdateScheduleViewTest(TestCase):

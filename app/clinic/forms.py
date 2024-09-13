@@ -205,12 +205,7 @@ class CustomUserCreationForm(UserCreationForm):
         """
         self.request_user = kwargs.pop('request_user', None)
         super().__init__(*args, **kwargs)
-        if self.instance and self.instance.user_level == UserLevel.SUPERUSER.value:
-            self.fields[FIELD_USER_LEVEL].disabled = True
-        if self.request_user:
-            self.fields[FIELD_USER_LEVEL] = validate_user_level(
-                self.request_user, self.instance, self.fields[FIELD_USER_LEVEL],
-            )
+        validate_user_level(self.request_user, self.instance, self.fields[FIELD_USER_LEVEL])
 
     def save(self, commit=True) -> CustomUser:
         """
@@ -240,6 +235,21 @@ class CustomUserCreationForm(UserCreationForm):
         if commit:
             user.save()
         return user
+
+    def clean_username(self) -> str:
+        """
+        Validate the username field.
+
+        Returns:
+            str: The cleaned username.
+
+        Raises:
+            ValidationError: If the username is not safe.
+        """
+        username: str = self.cleaned_data.get('username')
+        if not is_safe_username(username):
+            raise ValidationError(ERROR_USERNAME_UNSAFE)
+        return username
 
 
 class CustomUserChangeForm(UserChangeForm):
