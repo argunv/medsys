@@ -26,4 +26,7 @@ class IsAdminUser(BasePermission):
         Returns:
             bool: True if the user is an admin user, False otherwise.
         """
+        if not request.user.is_authenticated:
+            return False
+
         return request.user and request.user.user_level == UserLevel.SUPERUSER.value

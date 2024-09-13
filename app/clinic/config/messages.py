@@ -2,6 +2,7 @@ ERROR_IS_ACTIVE = 'This parameter must be constant (True) for this type of user.
 ERROR_START_BEFORE_END = 'Start time must be before end time.'
 ERROR_END_BEFORE_START = 'End time must be after start time.'
 ERROR_DOCTOR_BUSY = 'The doctor is already busy from {busy_time.start} to {busy_time.end} on {busy_time.date}'
+ERROR_VISIT_OUT_OF_SCHEDULE = 'Visit is out of doctor\'s schedule.'
 ERROR_DOCTOR_NOT_AVAILABLE = 'Doctor is not available at this time.'
 ERROR_STATUS_VISITED_INVALID = 'Status \'visited\' is not valid for future visits.'
 ERROR_STATUS_SCHEDULED_INVALID = 'Status \'scheduled\' is not valid for past visits.'

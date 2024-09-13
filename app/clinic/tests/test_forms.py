@@ -310,25 +310,38 @@ class VisitCreationFormTest(TestCase):
             doctor=self.doctor,
             start=time(9, 0),
             end=time(17, 0),
-            day_of_week=1
+            day_of_week=0
         )
         self.valid_data = {
+            'doctor': self.doctor.id,
+            'patient': self.patient.id,
             'date': datetime.strptime('2024-01-01', '%Y-%m-%d').date(),
             'start': time(10, 0),
             'end': time(11, 0),
+            'status': 'visited',
+            'description': 'Regular check-up',
         }
 
-    def test_clean_method(self):
-        form = VisitCreationForm(data=self.valid_data, doctor=self.doctor, patient=self.patient)
+    def test_valid_form(self):
+        form = VisitForm(data=self.valid_data)
+        if not form.is_valid():
+            print(form.errors)
+            print(self.valid_data, form.cleaned_data)
         self.assertTrue(form.is_valid())
 
     def test_invalid_time_order(self):
         invalid_data = self.valid_data.copy()
         invalid_data['start'] = time(11, 0)
         invalid_data['end'] = time(10, 0)
-        form = VisitCreationForm(data=invalid_data, doctor=self.doctor, patient=self.patient)
+        form = VisitForm(data=invalid_data)
         self.assertFalse(form.is_valid())
         self.assertIn('__all__', form.errors)
+
+    def test_clean_method(self):
+        form = VisitForm(data=self.valid_data)
+        if not form.is_valid():
+            print(form.errors)
+        self.assertTrue(form.is_valid())
 
 
 class DoctorSearchFormTest(TestCase):

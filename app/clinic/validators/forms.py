@@ -14,7 +14,8 @@ from clinic.config.messages import (ERROR_DOCTOR_BUSY,
                                     ERROR_STATUS_SCHEDULED_INVALID,
                                     ERROR_STATUS_VISITED_INVALID,
                                     ERROR_TIME_INCREMENT,
-                                    ERROR_USERNAME_UNSAFE)
+                                    ERROR_USERNAME_UNSAFE,
+                                    ERROR_VISIT_OUT_OF_SCHEDULE)
 from clinic.config.models import FIRST_NAME_MAX_LENGTH, LAST_NAME_MAX_LENGTH
 from clinic.models import Schedule, Visit
 from django.core.exceptions import ValidationError
@@ -61,10 +62,30 @@ def validate_doctor_availability(doctor, date, start, end, visit_instance_id, pa
         end (datetime.time): The end time of the visit.
         visit_instance_id (str): The ID of the visit instance.
         patient (CustomUser): The patient.
-
-    Raises:
-        ValidationError: If the doctor is not available at the specified time.
     """
+    day_of_week = date.weekday()
+    available_schedule = _get_available_schedule(doctor, day_of_week, start, end)
+
+    _check_overlapping_visits(doctor, date, start, end, visit_instance_id, patient)
+
+    _check_schedule_limits(available_schedule, start, end)
+
+
+def _get_available_schedule(doctor, day_of_week, start, end):
+    available_schedule = Schedule.objects.filter(
+        doctor=doctor,
+        day_of_week=day_of_week,
+        start__lte=start,
+        end__gte=end,
+    )
+
+    if not available_schedule.exists():
+        raise ValidationError(ERROR_DOCTOR_NOT_AVAILABLE)
+
+    return available_schedule
+
+
+def _check_overlapping_visits(doctor, date, start, end, visit_instance_id, patient):
     overlapping_visits = Visit.objects.filter(
         doctor=doctor,
         date=date,
@@ -73,18 +94,18 @@ def validate_doctor_availability(doctor, date, start, end, visit_instance_id, pa
     ).exclude(id=visit_instance_id)
 
     if overlapping_visits.exists():
-        other_patient_visits = Visit.objects.filter(
-            doctor=doctor,
-            date=date,
-            start__lt=end,
-            end__gt=start,
-            patient=patient,
-        ).exclude(id=visit_instance_id)
+        other_patient_visits = overlapping_visits.filter(patient=patient)
         if other_patient_visits.exists():
             busy_time = overlapping_visits.first()
             raise ValidationError(
                 ERROR_DOCTOR_BUSY.format(busy_time=busy_time),
             )
+
+
+def _check_schedule_limits(available_schedule, start, end):
+    for schedule in available_schedule:
+        if start < schedule.start or end > schedule.end:
+            raise ValidationError(ERROR_VISIT_OUT_OF_SCHEDULE)
 
 
 def validate_schedule(doctor, day_of_week, start, end):
@@ -151,19 +172,22 @@ def validate_user_level(request_user, instance, field):
         field (ChoiceField): The user level field.
 
     Returns:
-        ChoiceField: The user level field.
+        ChoiceField: The user level field with updated choices.
     """
     if instance and instance.user_level == UserLevel.SUPERUSER.value:
         field.disabled = True
+
     if request_user:
-        if request_user.user_level == UserLevel.ADMIN.value:
-            superuser_access_list = [UserLevel.SUPERUSER, UserLevel.ADMIN]
+        if request_user.user_level == UserLevel.SUPERUSER.value:
             field.choices = [
-                (level.value, level.name) for level in UserLevel if level not in superuser_access_list
+                (UserLevel.ADMIN.value, 'Admin'),
+                (UserLevel.DOCTOR.value, 'Doctor'),
+                (UserLevel.PATIENT.value, 'Patient'),
             ]
-        elif request_user.user_level == UserLevel.SUPERUSER.value:
+        else:
             field.choices = [
-                (level.value, level.name) for level in UserLevel if level != UserLevel.SUPERUSER
+                (UserLevel.DOCTOR.value, 'Doctor'),
+                (UserLevel.PATIENT.value, 'Patient'),
             ]
     return field
 
